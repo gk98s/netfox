@@ -428,7 +428,8 @@ func _record_tick(tick: int) -> void:
 
 			if not NetworkRollback.enable_diff_states:
 				# Broadcast new full state
-				_submit_full_state.rpc(full_state.as_dictionary(), tick)
+				#_submit_full_state.rpc(full_state.as_dictionary(), tick)
+				rpc_id(int(str(root.name)), &"_submit_full_state", full_state.as_dictionary(), tick)
 
 				NetworkPerformance.push_full_state_broadcast(full_state.as_dictionary())
 				NetworkPerformance.push_sent_state_broadcast(full_state.as_dictionary())
