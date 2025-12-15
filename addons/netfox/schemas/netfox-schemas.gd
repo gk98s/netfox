@@ -31,8 +31,6 @@ static func int32() -> NetfoxSerializer:
 static func int64() -> NetfoxSerializer:
 	return Int64Serializer.new()
 
-# TODO(v2): float16()
-
 static func float32() -> NetfoxSerializer:
 	return Float32Serializer.new()
 

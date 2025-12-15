@@ -1,12 +1,18 @@
-[gd_scene load_steps=17 format=3 uid="uid://dw3xd5a7xnse7"]
+[gd_scene load_steps=35 format=3 uid="uid://dw3xd5a7xnse7"]
 
-[ext_resource type="Script" path="res://examples/rollback-fps/scripts/player.gd" id="1_bww6v"]
-[ext_resource type="Script" path="res://examples/rollback-fps/scripts/player-weapon.gd" id="2_qyetr"]
+[ext_resource type="Script" uid="uid://16cr653lwxno" path="res://examples/rollback-fps/scripts/player.gd" id="1_bww6v"]
+[ext_resource type="Script" uid="uid://da0u0nkxkqnpt" path="res://examples/rollback-fps/scripts/player-weapon.gd" id="2_qyetr"]
 [ext_resource type="AudioStream" uid="uid://cope814m1d7p6" path="res://examples/multiplayer-fps/sounds/fire.mp3" id="3_kq0j8"]
-[ext_resource type="Script" path="res://addons/netfox/rewindable-action.gd" id="6_pks3d"]
-[ext_resource type="Script" path="res://examples/rollback-fps/scripts/player-input.gd" id="7_2i3bi"]
-[ext_resource type="Script" path="res://addons/netfox/rollback/rollback-synchronizer.gd" id="9_vik3r"]
-[ext_resource type="Script" path="res://addons/netfox/tick-interpolator.gd" id="10_4mqhe"]
+[ext_resource type="Script" uid="uid://s246ltev5csk" path="res://addons/netfox/schemas/resources/netfox-type-config.gd" id="6_3q4ja"]
+[ext_resource type="Script" uid="uid://chr4omg2hy3yu" path="res://addons/netfox/rewindable-action.gd" id="6_pks3d"]
+[ext_resource type="Script" uid="uid://efvmt2o8yu0e" path="res://examples/rollback-fps/scripts/player-input.gd" id="7_2i3bi"]
+[ext_resource type="Script" uid="uid://d16v0h7t6ga8k" path="res://addons/netfox/schemas/resources/nx-vector.gd" id="7_56lph"]
+[ext_resource type="Script" uid="uid://cy5c4sk7awtm2" path="res://addons/netfox/schemas/resources/nx-transform.gd" id="7_me2dt"]
+[ext_resource type="Script" uid="uid://dlcdwq8sgllcg" path="res://addons/netfox/schemas/resources/nx-int.gd" id="8_me2dt"]
+[ext_resource type="Script" uid="uid://lvu0phomwwhl" path="res://addons/netfox/schemas/resources/netfox-property-schema.gd" id="9_mkpxo"]
+[ext_resource type="Script" uid="uid://d350u8evihs1u" path="res://addons/netfox/rollback/rollback-synchronizer.gd" id="9_vik3r"]
+[ext_resource type="Script" uid="uid://dour8fehaaugp" path="res://addons/netfox/tick-interpolator.gd" id="10_4mqhe"]
+[ext_resource type="Script" uid="uid://cs8lwfy06rpv1" path="res://addons/netfox/schemas/resources/nx-bool.gd" id="11_mkpxo"]
 [ext_resource type="AudioStream" uid="uid://q7ql86p7flj" path="res://examples/multiplayer-fps/sounds/hit.wav" id="15_1n4tg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6kydi"]
@@ -32,6 +38,71 @@ albedo_color = Color(0, 0, 0, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_wqpqp"]
 material = SubResource("StandardMaterial3D_khk4l")
 size = Vector3(0.2, 0.2, 1)
+
+[sub_resource type="Resource" id="Resource_ttb63"]
+script = ExtResource("7_me2dt")
+property_name = ":transform"
+metadata/_custom_type_script = "uid://cy5c4sk7awtm2"
+
+[sub_resource type="Resource" id="Resource_3wm7r"]
+script = ExtResource("7_56lph")
+vector_type = 1
+property_name = ":velocity"
+metadata/_custom_type_script = "uid://d16v0h7t6ga8k"
+
+[sub_resource type="Resource" id="Resource_7ru53"]
+script = ExtResource("8_me2dt")
+size = 0
+property_name = ":health"
+metadata/_custom_type_script = "uid://dlcdwq8sgllcg"
+
+[sub_resource type="Resource" id="Resource_my0pb"]
+script = ExtResource("8_me2dt")
+is_signed = false
+property_name = ":deaths"
+metadata/_custom_type_script = "uid://dlcdwq8sgllcg"
+
+[sub_resource type="Resource" id="Resource_pvhl1"]
+script = ExtResource("7_me2dt")
+property_name = "Head:transform"
+metadata/_custom_type_script = "uid://cy5c4sk7awtm2"
+
+[sub_resource type="Resource" id="Resource_wgepc"]
+script = ExtResource("8_me2dt")
+size = 2
+property_name = "Head/PlayerFPSWeapon:last_fire"
+metadata/_custom_type_script = "uid://dlcdwq8sgllcg"
+
+[sub_resource type="Resource" id="Resource_xfpue"]
+script = ExtResource("9_mkpxo")
+properties = Array[ExtResource("6_3q4ja")]([SubResource("Resource_ttb63"), SubResource("Resource_3wm7r"), SubResource("Resource_7ru53"), SubResource("Resource_my0pb"), SubResource("Resource_pvhl1"), SubResource("Resource_wgepc")])
+metadata/_custom_type_script = "uid://lvu0phomwwhl"
+
+[sub_resource type="Resource" id="Resource_ehbsb"]
+script = ExtResource("7_56lph")
+vector_type = 1
+property_name = "Input:movement"
+metadata/_custom_type_script = "uid://d16v0h7t6ga8k"
+
+[sub_resource type="Resource" id="Resource_s0hem"]
+script = ExtResource("7_56lph")
+property_name = "Input:look_angle"
+metadata/_custom_type_script = "uid://d16v0h7t6ga8k"
+
+[sub_resource type="Resource" id="Resource_bggid"]
+script = ExtResource("11_mkpxo")
+property_name = "Input:jump"
+metadata/_custom_type_script = "uid://cs8lwfy06rpv1"
+
+[sub_resource type="Resource" id="Resource_de6dt"]
+script = ExtResource("11_mkpxo")
+property_name = "Input:fire"
+metadata/_custom_type_script = "uid://cs8lwfy06rpv1"
+
+[sub_resource type="Resource" id="Resource_r0odo"]
+script = ExtResource("9_mkpxo")
+properties = Array[ExtResource("6_3q4ja")]([SubResource("Resource_ehbsb"), SubResource("Resource_s0hem"), SubResource("Resource_bggid"), SubResource("Resource_de6dt")])
+metadata/_custom_type_script = "uid://lvu0phomwwhl"
 
 [node name="player" type="CharacterBody3D"]
 script = ExtResource("1_bww6v")
@@ -81,8 +152,8 @@ font_size = 16
 unique_name_in_owner = true
 script = ExtResource("9_vik3r")
 root = NodePath("..")
-state_properties = Array[String]([":transform", ":velocity", ":health", ":deaths", "Head:transform", "Head/PlayerFPSWeapon:last_fire"])
-input_properties = Array[String](["Input:movement", "Input:jump", "Input:fire", "Input:look_angle"])
+state_schema = SubResource("Resource_xfpue")
+input_schema = SubResource("Resource_r0odo")
 
 [node name="TickInterpolator" type="Node" parent="." node_paths=PackedStringArray("root")]
 script = ExtResource("10_4mqhe")

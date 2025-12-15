@@ -23,7 +23,8 @@ class_name RollbackSynchronizer
 ## State properties are recorded for each tick and restored during rollback.
 ## State is restored before every rollback tick, and recorded after simulating
 ## the tick.
-@export var state_properties: Array[String]
+var state_properties: Array[String] = []
+@export var state_schema: NetfoxPropertySchema
 
 ## Ticks to wait between sending full states.
 ## [br][br]
@@ -57,7 +58,8 @@ var diff_ack_interval: int = 0
 ## [br][br]
 ## Input properties drive the simulation, which in turn results in updated state
 ## properties. Input is recorded after every network tick.
-@export var input_properties: Array[String]
+var input_properties: Array[String] = []
+@export var input_schema: NetfoxPropertySchema
 
 ## This will broadcast input to all peers, turning this off will limit to
 ## sending it to the server only. Turning this off is recommended to save
@@ -110,6 +112,22 @@ func process_settings() -> void:
 	_states.clear()
 	_inputs.clear()
 	process_authority()
+	
+	var state_dict: Dictionary = {}
+	if state_schema:
+		state_dict = state_schema.get_serializers()
+	
+	var input_dict: Dictionary = {}
+	if input_schema:
+		input_dict = input_schema.get_serializers()
+	
+	var combined_schema: Dictionary = state_dict.duplicate()
+	combined_schema.merge(input_dict)
+	
+	state_properties.assign(state_dict.keys())
+	input_properties.assign(input_dict.keys())
+	
+	_schema = NetfoxSchemaHandler.new(combined_schema)
 
 	# Gather all rollback-aware nodes to simulate during rollbacks
 	_nodes = root.find_children("*")
